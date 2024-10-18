@@ -31,8 +31,8 @@
   "scripts": {
     "build": "backstage-cli package build",
     "clean": "backstage-cli package clean",
-    "export-dynamic": "janus-cli package export-dynamic-plugin --no-embed-as-dependencies",
-    "export-dynamic:clean": "janus-cli package export-dynamic-plugin --no-embed-as-dependencies --clean",
+    "export-dynamic": "janus-cli package export-dynamic-plugin",
+    "export-dynamic:clean": "janus-cli package export-dynamic-plugin --clean",
     "lint:check": "backstage-cli package lint",
     "lint:fix": "backstage-cli package lint --fix",
     "postpack": "backstage-cli package postpack",
@@ -54,7 +54,6 @@
     "@backstage/catalog-model": "^1.7.0",
     "@backstage/errors": "^1.2.4",
     "@backstage/plugin-catalog-node": "^1.13.0",
-    "@backstage/plugin-kubernetes-common": "^0.8.3",
     "@backstage/plugin-permission-common": "^0.8.1",
     "@backstage/plugin-permission-node": "^0.8.3",
     "@janus-idp/backstage-plugin-ocm-common": "3.4.1",
