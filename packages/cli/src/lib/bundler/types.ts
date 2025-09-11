@@ -29,6 +29,7 @@ export type BundlingOptions = {
   baseUrl: URL;
   parallelism?: number;
   additionalEntryPoints?: string[];
+  appMode?: string;
 };
 
 /**

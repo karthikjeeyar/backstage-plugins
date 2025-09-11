@@ -133,6 +133,9 @@ export async function createConfig(
 
   plugins.push(
     new HtmlWebpackPlugin({
+      meta: {
+        'backstage-app-mode': options?.appMode ?? 'public',
+      },
       template: paths.targetHtml,
       templateParameters: {
         publicPath,
@@ -141,6 +144,18 @@ export async function createConfig(
     }),
   );
 
+  plugins.push(
+    new HtmlWebpackPlugin({
+      meta: {
+        'backstage-app-mode': options?.appMode ?? 'public',
+        'backstage-public-path': '<%= publicPath %>/',
+      },
+      minify: false,
+      publicPath: '<%= publicPath %>',
+      filename: 'index.html.tmpl',
+      template: `${require.resolve('raw-loader')}!${paths.targetHtml}`,
+    }),
+  );
   const buildInfo = await readBuildInfo();
   plugins.push(
     new webpack.DefinePlugin({
@@ -183,7 +198,11 @@ export async function createConfig(
     },
     devtool: isDev ? 'eval-cheap-module-source-map' : 'source-map',
     context: paths.targetPath,
-    entry: [...(options.additionalEntryPoints ?? []), paths.targetEntry],
+    entry: [
+      require.resolve('@backstage/cli/config/webpack-public-path'),
+      ...(options.additionalEntryPoints ?? []),
+      paths.targetEntry,
+    ],
     resolve: {
       alias: {
         '@backstage/frontend-app-api/src': joinPath(
